@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEGO Sets</title>
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <header class="hero">
+    <h1>Collection</h1>
+    <%- include('partials/navbar', { page: '/lego/sets' }) %>
+  </header>
+  
+  <div class="hero bg-base-200 rounded-lg p-6">
+    <div class="hero-content text-center">
+      <div class="max-w-md">
+        <h1 class="text-5xl font-bold">Collection</h1>
+        <p class="py-6">Browse the entire collection. Click the theme to filter by themes such as:</p>
+        <div class="text-center py-4">
+          <a href="/lego/sets?theme=technic" class="btn btn-primary mx-2 text-sm py-1 px-2">TECHNIC</a>
+          <a href="/lego/sets?theme=classic%20town" class="btn btn-primary mx-4 text-sm py-2 px-4">CLASSIC TOWN</a>
+          <a href="/lego/sets?theme=supplemental" class="btn btn-primary mx-4 text-sm py-2 px-4">SUPPLEMENTAL</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <main>
+    <% if (sets.length === 0) { %>
+      <p class="text-red-500">Unable to find requested sets.</p>
+    <% } else { %>
+      <table class="table-auto w-full text-left">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Theme</th>
+            <th>Year Released</th>
+            <th>Number of Parts</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sets.forEach(set => { %>
+            <tr>
+              <td><img src="<%= set.img_url %>" alt="<%= set.name %>" style="width: 50px;"/></td>
+              <td><%= set.name %></td>
+              <td><a href="/lego/sets?theme=<%= set.theme.toLowerCase() %>" class="btn btn-theme"><%= set.theme %></a></td>
+              <td><%= set.year %></td>
+              <td><%= set.num_parts %></td>
+              <td><a href="/lego/sets/<%= set.set_num %>" class="btn btn-details">Details</a></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </main>
+  
+</body>
+</html>
